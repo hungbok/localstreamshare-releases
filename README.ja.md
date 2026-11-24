@@ -12,20 +12,20 @@
 - **画面ソース**: モニター、1つのウィンドウ、キャプチャーボード・ウェブカメラ(PC画面を経由せず直接配信)、動画ファイル、スマートフォンや他のPCの画面
 - **音声ソース**: 出力デバイス、特定のアプリのみ(または特定のアプリ以外すべて)、マイク、キャプチャーボードの音。複数を個別の音量でミックスできます。
 - ゲーム向けの**超低遅延プリセット**: ハードウェアH.264 · 60fps · 1080p、視聴側のバッファを最小化
-- **GPUによる画質向上**: 超解像(FSR 1.0 · Anime4K)、アンチエイリアス、ノイズ除去、フレーム生成(モーション補間)、色補正
-- **スマートフォンをソースに**: Androidはワイヤレス デバッグで画面・音声・操作(アプリ不要)、どの端末でもブラウザーから、iPhoneはRTMP配信アプリから
+- **GPUによる画質向上**: 超解像(NVIDIA DLSS / DLAA · NVIDIA RTX™ Video · AMD FSR™ · Anime4K)、フレーム生成(NVIDIA VFG · DLSS Frame Generation · FSR 3 · モーション補間)、アンチエイリアス、ノイズ除去、色補正。必要なファイルはすべて同梱しています。
+- **スマートフォンをソースに**: Androidはワイヤレス デバッグで画面・音声・操作(アプリ不要)、iPhone・iPadはAirPlay画面ミラーリングで、どの端末でもブラウザーから、RTMP配信アプリから
 - プレビューの全画面表示、性能ダッシュボード(F3)、接続PIN、接続用QRコード
 - 韓国語・英語・日本語・中国語(簡体字・繁体字)に対応。視聴ページは開いた端末の言語で表示されます。
 
 ## インストール
 
 1. [Releases](https://github.com/hungbok/localstreamshare-releases/releases/latest)から`LocalStreamShare-Setup-x.y.z.exe`をダウンロードして実行します。
-2. 言語・インストール先・ショートカットを選びます。すべてのユーザー向けにインストールされ、管理者権限を1回確認します。
+2. 言語を選び、使用許諾契約を確認してから、インストール先・ショートカットを選びます。すべてのユーザー向けにインストールされ、管理者権限を1回確認します。
 3. コード署名がないため、Windows SmartScreenの警告が出ることがあります。このページから入手したファイルであることを確認し、**詳細情報 → 実行**を押してください。
    - **スマート アプリ コントロール**がオンの場合(一部の新しいWindows 11 PC)、署名のないプログラムは選択肢なくブロックされます。状態は**Windows セキュリティ → アプリとブラウザーの制御**で確認できます。
 4. 初回起動時にWindowsファイアウォールの確認が表示されます。**プライベートネットワークで許可**しないと他の端末から接続できません。
 
-**Windows 10 バージョン2004以降 / Windows 11、64ビット**が必要です。ほかにインストールするものはありません。
+**Windows 10 バージョン2004以降 / Windows 11、64ビット**が必要です。ほかにインストールするものはありません。ディスク容量は約1GB必要です。
 
 ## クイックスタート
 
@@ -43,15 +43,22 @@
 |---|---|---|
 | Android 11以降 | ワイヤレス デバッグ(QRペア設定)、画面と音声 | タッチ・キーボード・クリップボード |
 | Android 5~10 | USBデバッグのケーブル接続 | 同上 |
-| iPhone · iPad | RTMP配信アプリ(例: Larix Screencaster) | Bluetoothマウス・キーボード(実験的) |
+| iPhone · iPad · Mac | AirPlay画面ミラーリング(実験的)またはRTMP配信アプリ(例: Larix Screencaster) | Bluetoothマウス・キーボード(実験的) |
 | PC · Mac · Chromebook | ウェブページから画面共有 | – |
 | スマートフォンのカメラ | ウェブページ | – |
 
-Android接続ファイル(約11MB)は初回のみ[scrcpy](https://github.com/Genymobile/scrcpy)の公式配布物から取得し、改ざんがないか確認します。AirPlayの受信にはライセンスの異なる(GPL‑3.0)別モジュールが必要で、同梱していません。
+Android接続ファイル([scrcpy](https://github.com/Genymobile/scrcpy)サーバーとadb)は同梱しています。AirPlayの受信は[UxPlay](https://github.com/FDH2/UxPlay)の非公式実装を使用し、Appleが提供するものではありません。Netflixなどの保護された映像はミラーリングされません。
 
-## オプション: GPUランタイム
+## GPU機能
 
-NVIDIA Video Effects SDKのランタイムがあれば、NVIDIA RTX Videoの超解像とフレーム生成を使えます。ライセンス上同梱できないため、ファイルを**設定 → 追加コンポーネントフォルダーを開く → `rtx-runtime`** に入れて再起動してください。ない場合は内蔵方式で処理します。
+| 機能 | 必要なもの |
+|---|---|
+| NVIDIA DLSS / DLAA、RTX Video超解像、Video Frame Generation | NVIDIA RTX GPUと最新のドライバー |
+| NVIDIA DLSS Frame Generation | NVIDIA RTX 40シリーズ以降 |
+| AMD FSR 2 / 3、FSR 3 Frame Generation | 現在はNVIDIA RTX GPU |
+| FSR 1.0、Anime4K、モーション補間、アンチエイリアス、ノイズ除去 | すべてのGPU |
+
+このPCで使えない項目は使用不可と表示されます。
 
 ## 更新
 
@@ -59,7 +66,7 @@ NVIDIA Video Effects SDKのランタイムがあれば、NVIDIA RTX Videoの超�
 
 ## プライバシー
 
-画面と音は、同じネットワークで接続した端末にのみ送信されます。アプリがインターネットに接続するのは、GitHubでの更新確認と、要求した場合のAndroidファイルのダウンロードだけです。
+画面と音は、同じネットワークで接続した端末にのみ送信されます。アプリ自身がインターネットに接続するのは、GitHubでの更新確認だけです。NVIDIAのコンポーネントはNVIDIAドライバーを通じて更新されることがあります。
 
 ## 接続できないとき
 
@@ -67,4 +74,17 @@ NVIDIA Video Effects SDKのランタイムがあれば、NVIDIA RTX Videoの超�
 - **Windows セキュリティ → ファイアウォールとネットワーク保護 → ファイアウォールによるアプリケーションの許可**で、現在のネットワークの種類(プライベートまたはパブリック)にLocalStreamShareが許可されているか確認してください。
 - 遅延を抑えるには5GHz Wi‑Fiまたは有線接続を使用してください。
 
-使用しているオープンソースのライセンスは、アプリの**設定 → オープンソースライセンス**で確認できます。
+## ライセンス
+
+LocalStreamShareはMITライセンスで無料です。同梱コンポーネントはそれぞれのライセンスに従い、インストール先の`licenses`に入っています(**設定 → ライセンスフォルダーを開く**)。
+
+| コンポーネント | ライセンス |
+|---|---|
+| NVIDIA DLSS、NVIDIA RTX™ Video、NVIDIA Video Effects、CUDAランタイム | NVIDIA RTX SDKs License、NVIDIA Software License Agreement、NVIDIA Open Model License |
+| AMD FidelityFX | AMDライセンス / MIT |
+| scrcpyサーバー、Android Debug Bridge | Apache License 2.0 |
+| FairPlay.exe (UxPlay) | GPL‑3.0、ソースコードは`licenses\FairPlay\source` |
+| Microsoft Visual C++ランタイム | Microsoftライセンス |
+| Electron、Anime4Kなど | `THIRD_PARTY_NOTICES.txt` |
+
+NVIDIAのコンポーネントはNVIDIA GPUを搭載したPCでのみ使用でき、個別に再配布することはできません。NVIDIA、AMD、Microsoft、Apple、Googleが保証または後援するプログラムではなく、商標は各社に帰属します。
