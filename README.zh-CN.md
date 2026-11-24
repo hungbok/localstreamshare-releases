@@ -12,20 +12,20 @@
 - **画面来源**：显示器、单个窗口、采集卡/摄像头 (不经过电脑屏幕直接串流)、视频文件、手机或其他电脑的屏幕
 - **音频来源**：输出设备、仅特定应用 (或排除特定应用)、麦克风、采集卡声音。可分别设置音量并混合。
 - 面向游戏的**超低延迟预设**：硬件 H.264 · 60fps · 1080p，观看端缓冲最小化
-- **GPU 画质增强**：超分辨率 (FSR 1.0、Anime4K)、抗锯齿、降噪、帧生成 (运动插帧)、色彩校正
-- **以手机作为来源**：Android 通过无线调试获取画面、声音并可操控 (无需安装应用)；任何设备都可用浏览器；iPhone 可用 RTMP 直播应用
+- **GPU 画质增强**：超分辨率 (NVIDIA DLSS / DLAA、NVIDIA RTX™ Video、AMD FSR™、Anime4K)、帧生成 (NVIDIA VFG、DLSS Frame Generation、FSR 3、运动插帧)、抗锯齿、降噪、色彩校正。所需文件均已包含。
+- **以手机作为来源**：Android 通过无线调试获取画面、声音并可操控 (无需安装应用)；iPhone、iPad 可用 AirPlay 屏幕镜像；任何设备都可用浏览器；也可用 RTMP 直播应用
 - 预览全屏、性能面板 (F3)、访问 PIN、连接用二维码
 - 支持韩语、英语、日语、简体中文和繁体中文。观看页面按打开设备的语言显示。
 
 ## 安装
 
 1. 从 [Releases](https://github.com/hungbok/localstreamshare-releases/releases/latest) 下载 `LocalStreamShare-Setup-x.y.z.exe` 并运行。
-2. 选择语言、安装位置和快捷方式。程序为所有用户安装，会请求一次管理员权限。
+2. 选择语言并阅读许可协议，然后选择安装位置和快捷方式。程序为所有用户安装，会请求一次管理员权限。
 3. 安装程序没有代码签名，Windows SmartScreen 可能会发出警告。请确认文件来自本页面，然后选择**更多信息 → 仍要运行**。
    - 如果开启了**智能应用控制** (部分新的 Windows 11 电脑)，Windows 会直接阻止所有未签名的程序。可在 **Windows 安全中心 → 应用和浏览器控制** 中查看状态。
 4. 首次启动时 Windows 防火墙会询问是否允许。**请在专用网络上允许**，否则其他设备无法连接。
 
-需要 **Windows 10 2004 或更高版本 / Windows 11，64 位**。无需安装其他软件。
+需要 **Windows 10 2004 或更高版本 / Windows 11，64 位**。无需安装其他软件。需要约 1GB 磁盘空间。
 
 ## 快速开始
 
@@ -43,15 +43,22 @@
 |---|---|---|
 | Android 11 及以上 | 无线调试 (扫码配对)，画面和声音 | 触摸、键盘、剪贴板 |
 | Android 5~10 | USB 调试线 | 同上 |
-| iPhone · iPad | RTMP 直播应用 (例如 Larix Screencaster) | 蓝牙鼠标/键盘 (实验性) |
+| iPhone · iPad · Mac | AirPlay 屏幕镜像 (实验性) 或 RTMP 直播应用 (例如 Larix Screencaster) | 蓝牙鼠标/键盘 (实验性) |
 | PC · Mac · Chromebook | 通过网页共享屏幕 | – |
 | 手机摄像头 | 网页 | – |
 
-Android 连接文件 (约 11MB) 会在首次使用时从 [scrcpy](https://github.com/Genymobile/scrcpy) 官方发布版下载，并校验是否被篡改。接收 AirPlay 需要许可证不同 (GPL‑3.0) 的额外模块，未包含在内。
+Android 连接文件 ([scrcpy](https://github.com/Genymobile/scrcpy) 服务端和 adb) 已包含。接收 AirPlay 使用 [UxPlay](https://github.com/FDH2/UxPlay) 的非官方实现，并非由 Apple 提供。Netflix 等受保护的视频不会被镜像。
 
-## 可选：GPU 运行库
+## GPU 功能
 
-如果有 NVIDIA Video Effects SDK 运行库，可以使用 NVIDIA RTX Video 超分辨率和帧生成。因许可证无法一同发布，请将文件放入**设置 → 打开附加组件文件夹 → `rtx-runtime`** 并重新启动。没有时使用内置方式处理。
+| 功能 | 要求 |
+|---|---|
+| NVIDIA DLSS / DLAA、RTX Video 超分辨率、Video Frame Generation | NVIDIA RTX GPU 和最新驱动 |
+| NVIDIA DLSS Frame Generation | NVIDIA RTX 40 系列或更新 |
+| AMD FSR 2 / 3、FSR 3 Frame Generation | 目前需要 NVIDIA RTX GPU |
+| FSR 1.0、Anime4K、运动插帧、抗锯齿、降噪 | 所有 GPU |
+
+此电脑无法使用的项目会显示为不可用。
 
 ## 更新
 
@@ -59,7 +66,7 @@ Android 连接文件 (约 11MB) 会在首次使用时从 [scrcpy](https://github
 
 ## 隐私
 
-画面和声音只会发送到同一网络中连接的设备。程序只在两种情况下连接互联网：在 GitHub 检查更新，以及应您的要求下载 Android 文件。
+画面和声音只会发送到同一网络中连接的设备。程序自身只会为了在 GitHub 检查更新而连接互联网。NVIDIA 组件可能通过 NVIDIA 驱动程序更新。
 
 ## 无法连接时
 
@@ -67,4 +74,17 @@ Android 连接文件 (约 11MB) 会在首次使用时从 [scrcpy](https://github
 - 在 **Windows 安全中心 → 防火墙和网络保护 → 允许应用通过防火墙** 中，确认当前网络类型 (专用或公用) 已允许 LocalStreamShare。
 - 使用 5GHz Wi‑Fi 或有线连接可获得更低延迟。
 
-所用开源软件的许可证可在程序的**设置 → 开源许可证**中查看。
+## 许可证
+
+LocalStreamShare 依据 MIT 许可证免费提供。随附的组件适用各自的许可证，位于安装目录的 `licenses` 文件夹 (**设置 → 打开许可证文件夹**)。
+
+| 组件 | 许可证 |
+|---|---|
+| NVIDIA DLSS、NVIDIA RTX™ Video、NVIDIA Video Effects、CUDA 运行库 | NVIDIA RTX SDKs License、NVIDIA Software License Agreement、NVIDIA Open Model License |
+| AMD FidelityFX | AMD 许可证 / MIT |
+| scrcpy 服务端、Android Debug Bridge | Apache License 2.0 |
+| FairPlay.exe (UxPlay) | GPL‑3.0，源代码位于 `licenses\FairPlay\source` |
+| Microsoft Visual C++ 运行库 | Microsoft 许可证 |
+| Electron、Anime4K 等 | `THIRD_PARTY_NOTICES.txt` |
+
+NVIDIA 组件只能在装有 NVIDIA GPU 的电脑上使用，不得单独再分发。本程序并非由 NVIDIA、AMD、Microsoft、Apple 或 Google 认可或赞助，商标归各公司所有。
