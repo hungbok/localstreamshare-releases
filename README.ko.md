@@ -8,13 +8,16 @@
 
 ## 주요 기능
 
-- **내 네트워크 안에서만 동작합니다.** 영상은 PC에서 보는 기기로 바로 갑니다(WebRTC). 계정도, 외부 서버도, 시간 제한도 없습니다.
+- **내 네트워크 안에서 동작합니다.** 영상은 PC에서 보는 기기로 바로 갑니다(WebRTC). 계정도, 외부 서버도, 시간 제한도 없습니다.
 - **화면 소스**: 모니터, 창 하나, 캡처보드·웹캠(PC 화면을 거치지 않고 바로 송출), 동영상 파일, 휴대폰이나 다른 PC의 화면
 - **오디오 소스**: 출력 장치, 특정 앱만(또는 특정 앱만 빼고 전체), 마이크, 캡처보드 소리. 여러 개를 볼륨을 따로 정해 섞을 수 있습니다.
 - 게임용 **초저지연 프리셋**: 하드웨어 H.264 · 60fps · 1080p, 보는 쪽 버퍼 최소화
-- **GPU 화질 향상**: 초해상도(NVIDIA DLSS / DLAA · NVIDIA RTX™ Video · AMD FSR™ · Anime4K), 프레임 생성(NVIDIA VFG · DLSS Frame Generation · FSR 3 · 모션 보간), 안티앨리어싱, 노이즈 제거, 색 보정. 필요한 파일이 모두 포함되어 있습니다.
+- **GPU 화질 향상**: 초해상도(NVIDIA DLSS / DLAA · NVIDIA RTX™ Video · AMD FSR™ · Intel® XeSS · Anime4K), 프레임 생성(NVIDIA VFG · DLSS Frame Generation · FSR 3 · 모션 보간), 안티앨리어싱, 노이즈 제거, 색 보정. 필요한 파일이 모두 포함되어 있습니다.
 - **휴대폰을 소스로**: Android는 무선 디버깅으로 화면·소리·조작(앱 설치 없음), iPhone·iPad는 AirPlay 화면 미러링으로, 어떤 기기든 브라우저로, RTMP 방송 앱으로
-- 미리보기 전체화면, 성능 대시보드(F3), 접속 PIN, 접속용 QR 코드
+- **기억합니다**: 창 위치, 고른 소스와 볼륨, 주소와 포트. 고른 창·기기·앱이 사라져도 다시 나타나면 자동으로 되돌립니다.
+- **뒤에서도 계속**: 최소화한 창도 골라 송출하고, 송출 중인 창을 최소화해도 멈추지 않습니다.
+- 원하면 **인터넷에서도 접속**(기본 꺼짐): 공유기 포트를 자동으로 열고 공인 IP·포트·QR을 알려 주며 PIN으로 보호합니다.
+- 미리보기 전체화면(휴대폰 조작 패널 포함), 성능 대시보드(F3), 접속 PIN, 접속용 QR 코드
 - 한국어·영어·일본어·중국어 간체·번체 지원. 시청 페이지는 보는 기기의 언어로 표시됩니다.
 
 ## 설치
@@ -34,6 +37,10 @@
 3. 다른 기기에서 **접속 주소**에 나온 주소(예: `http://192.168.0.10:47800`)를 열거나 QR 코드를 찍습니다.
 
 같은 네트워크를 다른 사람도 쓴다면 **접속 PIN**을 설정하세요.
+
+### 다른 네트워크에서 보기
+
+**설정 → 외부(인터넷) 접속 허용**을 켜면 공유기에 포트를 열고(UPnP) 접속할 공인 IP와 포트를 보여 줍니다. 공유기가 지원하지 않으면 직접 열 포트를 알려 줍니다. 외부에서는 **외부 접속 PIN**이 필요하고 시청만 할 수 있습니다. 공인 IP를 주지 않는 회선에서는 동작하지 않을 수 있습니다. 쓰지 않을 때는 꺼 두세요.
 
 ## 휴대폰·다른 PC를 소스로 쓰기
 
@@ -55,7 +62,8 @@
 |---|---|
 | NVIDIA DLSS / DLAA, RTX Video 초해상도, Video Frame Generation | NVIDIA RTX GPU와 최신 드라이버 |
 | NVIDIA DLSS Frame Generation | NVIDIA RTX 40 시리즈 이상 |
-| AMD FSR 2 / 3, FSR 3 Frame Generation | 현재는 NVIDIA RTX GPU |
+| AMD FSR 2 / 3, FSR 3 Frame Generation, Intel XeSS | 최근의 GPU면 모두 (NVIDIA · AMD · Intel, DirectX 12) |
+| AMD FSR 4 | AMD Radeon RX 9000 시리즈 |
 | FSR 1.0, Anime4K, 모션 보간, 안티앨리어싱, 노이즈 제거 | 모든 GPU |
 
 이 PC에서 쓸 수 없는 항목은 사용 불가로 표시됩니다.
@@ -66,7 +74,7 @@
 
 ## 개인정보
 
-화면과 소리는 같은 네트워크에서 접속한 기기로만 보냅니다. 앱이 스스로 인터넷에 연결하는 것은 GitHub 업데이트 확인뿐입니다. NVIDIA 구성요소는 NVIDIA 드라이버를 통해 업데이트될 수 있습니다.
+화면과 소리는 같은 네트워크에서 접속한 기기로만 보냅니다. 앱이 스스로 인터넷에 연결하는 것은 GitHub 업데이트 확인뿐이며, 외부 접속을 허용했을 때만 공인 IP 확인 서비스(ipify 등)에 연결하고 인터넷에서 오는 접속을 받습니다. 고른 소스처럼 기억하는 내용은 이 PC에만 저장됩니다. NVIDIA 구성요소는 NVIDIA 드라이버를 통해 업데이트될 수 있습니다.
 
 ## 접속이 안 될 때
 
@@ -82,9 +90,10 @@ LocalStreamShare는 MIT 라이선스로 무료입니다. 함께 포함된 구성
 |---|---|
 | NVIDIA DLSS, NVIDIA RTX™ Video, NVIDIA Video Effects, CUDA 런타임 | NVIDIA RTX SDKs License, NVIDIA Software License Agreement, NVIDIA Open Model License |
 | AMD FidelityFX | AMD 라이선스 / MIT |
+| Intel XeSS | Intel Simplified Software License |
 | scrcpy 서버, Android Debug Bridge | Apache License 2.0 |
 | FairPlay.exe (UxPlay) | GPL‑3.0, 소스 코드는 `licenses\FairPlay\source` |
 | Microsoft Visual C++ 런타임 | Microsoft 라이선스 |
 | Electron, Anime4K 등 | `THIRD_PARTY_NOTICES.txt` |
 
-NVIDIA 구성요소는 NVIDIA GPU가 있는 PC에서만 쓸 수 있고 따로 재배포할 수 없습니다. NVIDIA, AMD, Microsoft, Apple, Google이 보증하거나 후원하는 프로그램이 아니며, 상표는 각 회사의 것입니다.
+NVIDIA 구성요소는 NVIDIA GPU가 있는 PC에서만 쓸 수 있고 따로 재배포할 수 없습니다. NVIDIA, AMD, Intel, Microsoft, Apple, Google이 보증하거나 후원하는 프로그램이 아니며, 상표는 각 회사의 것입니다.
