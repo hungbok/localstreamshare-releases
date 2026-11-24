@@ -8,13 +8,16 @@ Stream **only the screen and sound you choose** to phones, PCs and TVs on the sa
 
 ## Features
 
-- **Runs entirely on your own network.** Video goes straight from your PC to the viewer (WebRTC). No account, no outside server, no time limit.
+- **Runs on your own network.** Video goes straight from your PC to the viewer (WebRTC). No account, no outside server, no time limit.
 - **Screen sources**: a monitor, a single window, a capture card or webcam (sent directly, without passing through the PC screen), a video file, or the screen of a phone or another PC.
 - **Audio sources**: an output device, a single app (or everything except one app), microphones and capture card audio. Mix several with separate volumes.
 - **Ultra low latency preset** for games: hardware H.264, 60 fps, 1080p, minimal buffering on the viewer side.
-- **Picture enhancement on the GPU**: super resolution (NVIDIA DLSS / DLAA, NVIDIA RTX™ Video, AMD FSR™, Anime4K), frame generation (NVIDIA VFG, DLSS Frame Generation, FSR 3, motion interpolation), anti-aliasing, noise reduction and color correction. Everything needed is included.
+- **Picture enhancement on the GPU**: super resolution (NVIDIA DLSS / DLAA, NVIDIA RTX™ Video, AMD FSR™, Intel® XeSS, Anime4K), frame generation (NVIDIA VFG, DLSS Frame Generation, FSR 3, motion interpolation), anti-aliasing, noise reduction and color correction. Everything needed is included.
 - **Phones as sources**: Android over Wireless debugging (screen, sound and control, no app to install), iPhone and iPad over AirPlay screen mirroring, any device's browser, and RTMP broadcast apps.
-- Preview in full screen, performance dashboard (F3), access PIN, QR code for viewers.
+- **It remembers** the window position, the chosen sources and volumes, the address and port. When a chosen window, device or app disappears, it switches back as soon as it returns.
+- **Keeps going in the background**: minimized windows can be chosen and streamed, and minimizing a window you are streaming does not stop it.
+- **Access from the internet** if you want it (off by default): opens router ports automatically, shows the public IP, port and QR code, and is protected by a PIN.
+- Preview in full screen (with a control panel for phones), performance dashboard (F3), access PIN, QR code for viewers.
 - Korean, English, Japanese, Simplified and Traditional Chinese. The viewer page follows the language of the device it is opened on.
 
 ## Install
@@ -34,6 +37,10 @@ Requires **Windows 10 version 2004 or later / Windows 11, 64-bit**. Nothing else
 3. On the other device, open the address shown under **Address** (for example `http://192.168.0.10:47800`) or scan the QR code.
 
 Set an **Access PIN** if other people use the same network.
+
+### Watching from another network
+
+Turn on **Settings → Allow external (internet) access**. It opens ports on the router (UPnP) and shows the public IP and port to connect to; if the router does not support that, it lists the ports to forward yourself. Outside devices need the **external access PIN** and can only watch. It may not work on connections without a public IP address. Turn it off when you are not using it.
 
 ## Phones and other PCs as sources
 
@@ -55,7 +62,8 @@ The Android connection files ([scrcpy](https://github.com/Genymobile/scrcpy) ser
 |---|---|
 | NVIDIA DLSS / DLAA, RTX Video Super Resolution, Video Frame Generation | NVIDIA RTX GPU and a recent driver |
 | NVIDIA DLSS Frame Generation | NVIDIA RTX 40 series or newer |
-| AMD FSR 2 / 3 and FSR 3 Frame Generation | currently an NVIDIA RTX GPU |
+| AMD FSR 2 / 3, FSR 3 Frame Generation, Intel XeSS | any recent GPU (NVIDIA, AMD or Intel, DirectX 12) |
+| AMD FSR 4 | AMD Radeon RX 9000 series |
 | FSR 1.0, Anime4K, motion interpolation, anti-aliasing, noise reduction | any GPU |
 
 Options that your PC cannot use are shown as unavailable.
@@ -66,7 +74,7 @@ The app checks for a new version at startup and every four hours, and downloads 
 
 ## Privacy
 
-Your screen and sound are sent only to the devices that connect on your network. The only internet connection the app itself makes is the update check on GitHub. NVIDIA may update its own components through its driver.
+Your screen and sound are sent only to the devices that connect on your network. The only internet connection the app itself makes is the update check on GitHub. Only when you allow external access does it also contact a service that reports the public IP (such as ipify) and accept connections from the internet. What it remembers, such as the chosen sources, is stored only on this PC. NVIDIA may update its own components through its driver.
 
 ## If viewers cannot connect
 
@@ -82,9 +90,10 @@ LocalStreamShare is free under the MIT License. The components included with it 
 |---|---|
 | NVIDIA DLSS, NVIDIA RTX™ Video, NVIDIA Video Effects, CUDA runtime | NVIDIA RTX SDKs License, NVIDIA Software License Agreement, NVIDIA Open Model License |
 | AMD FidelityFX | AMD license / MIT |
+| Intel XeSS | Intel Simplified Software License |
 | scrcpy server, Android Debug Bridge | Apache License 2.0 |
 | FairPlay.exe (from UxPlay) | GPL‑3.0, with its source code in `licenses\FairPlay\source` |
 | Microsoft Visual C++ runtime | Microsoft license |
 | Electron, Anime4K and others | see `THIRD_PARTY_NOTICES.txt` |
 
-NVIDIA components work only on systems with NVIDIA GPUs and may not be redistributed separately. LocalStreamShare is not sponsored or endorsed by NVIDIA, AMD, Microsoft, Apple or Google. All trademarks belong to their owners.
+NVIDIA components work only on systems with NVIDIA GPUs and may not be redistributed separately. LocalStreamShare is not sponsored or endorsed by NVIDIA, AMD, Intel, Microsoft, Apple or Google. All trademarks belong to their owners.
