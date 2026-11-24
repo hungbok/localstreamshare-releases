@@ -8,13 +8,16 @@
 
 ## 主要功能
 
-- **只在您自己的网络内运行。** 视频从电脑直接发送到观看设备 (WebRTC)。无需账号，不经过外部服务器，没有时间限制。
+- **在您自己的网络内运行。** 视频从电脑直接发送到观看设备 (WebRTC)。无需账号，不经过外部服务器，没有时间限制。
 - **画面来源**：显示器、单个窗口、采集卡/摄像头 (不经过电脑屏幕直接串流)、视频文件、手机或其他电脑的屏幕
 - **音频来源**：输出设备、仅特定应用 (或排除特定应用)、麦克风、采集卡声音。可分别设置音量并混合。
 - 面向游戏的**超低延迟预设**：硬件 H.264 · 60fps · 1080p，观看端缓冲最小化
-- **GPU 画质增强**：超分辨率 (NVIDIA DLSS / DLAA、NVIDIA RTX™ Video、AMD FSR™、Anime4K)、帧生成 (NVIDIA VFG、DLSS Frame Generation、FSR 3、运动插帧)、抗锯齿、降噪、色彩校正。所需文件均已包含。
+- **GPU 画质增强**：超分辨率 (NVIDIA DLSS / DLAA、NVIDIA RTX™ Video、AMD FSR™、Intel® XeSS、Anime4K)、帧生成 (NVIDIA VFG、DLSS Frame Generation、FSR 3、运动插帧)、抗锯齿、降噪、色彩校正。所需文件均已包含。
 - **以手机作为来源**：Android 通过无线调试获取画面、声音并可操控 (无需安装应用)；iPhone、iPad 可用 AirPlay 屏幕镜像；任何设备都可用浏览器；也可用 RTMP 直播应用
-- 预览全屏、性能面板 (F3)、访问 PIN、连接用二维码
+- **会记住**窗口位置、所选来源和音量、地址和端口。所选窗口、设备或应用消失后，重新出现时自动切换回来。
+- **在后台继续运行**: 最小化的窗口也可选择并串流，正在串流的窗口最小化后也不会停止。
+- 需要时可**从互联网访问** (默认关闭): 自动在路由器上开放端口，显示公网 IP、端口和二维码，并由 PIN 保护。
+- 预览全屏 (含手机操作面板)、性能面板 (F3)、访问 PIN、连接用二维码
 - 支持韩语、英语、日语、简体中文和繁体中文。观看页面按打开设备的语言显示。
 
 ## 安装
@@ -34,6 +37,10 @@
 3. 在其他设备上打开**访问地址**中显示的地址 (例如 `http://192.168.0.10:47800`)，或扫描二维码。
 
 如果同一网络还有其他人使用，请设置**访问 PIN**。
+
+### 从其他网络观看
+
+打开 **设置 → 允许外部 (互联网) 访问** 后，会在路由器上开放端口 (UPnP)，并显示用于连接的公网 IP 和端口；若路由器不支持，则列出需要自行转发的端口。外部设备需要**外部访问 PIN**，且只能观看。没有公网 IP 的线路可能无法使用。不使用时请关闭。
 
 ## 以手机或其他电脑作为来源
 
@@ -55,7 +62,8 @@ Android 连接文件 ([scrcpy](https://github.com/Genymobile/scrcpy) 服务端�
 |---|---|
 | NVIDIA DLSS / DLAA、RTX Video 超分辨率、Video Frame Generation | NVIDIA RTX GPU 和最新驱动 |
 | NVIDIA DLSS Frame Generation | NVIDIA RTX 40 系列或更新 |
-| AMD FSR 2 / 3、FSR 3 Frame Generation | 目前需要 NVIDIA RTX GPU |
+| AMD FSR 2 / 3、FSR 3 Frame Generation、Intel XeSS | 所有较新的 GPU (NVIDIA、AMD、Intel，DirectX 12) |
+| AMD FSR 4 | AMD Radeon RX 9000 系列 |
 | FSR 1.0、Anime4K、运动插帧、抗锯齿、降噪 | 所有 GPU |
 
 此电脑无法使用的项目会显示为不可用。
@@ -66,7 +74,7 @@ Android 连接文件 ([scrcpy](https://github.com/Genymobile/scrcpy) 服务端�
 
 ## 隐私
 
-画面和声音只会发送到同一网络中连接的设备。程序自身只会为了在 GitHub 检查更新而连接互联网。NVIDIA 组件可能通过 NVIDIA 驱动程序更新。
+画面和声音只会发送到同一网络中连接的设备。程序自身只会为了在 GitHub 检查更新而连接互联网；只有在允许外部访问时，才会连接查询公网 IP 的服务 (如 ipify) 并接受来自互联网的连接。所选来源等记住的内容只保存在此电脑上。NVIDIA 组件可能通过 NVIDIA 驱动程序更新。
 
 ## 无法连接时
 
@@ -82,9 +90,10 @@ LocalStreamShare 依据 MIT 许可证免费提供。随附的组件适用各自�
 |---|---|
 | NVIDIA DLSS、NVIDIA RTX™ Video、NVIDIA Video Effects、CUDA 运行库 | NVIDIA RTX SDKs License、NVIDIA Software License Agreement、NVIDIA Open Model License |
 | AMD FidelityFX | AMD 许可证 / MIT |
+| Intel XeSS | Intel Simplified Software License |
 | scrcpy 服务端、Android Debug Bridge | Apache License 2.0 |
 | FairPlay.exe (UxPlay) | GPL‑3.0，源代码位于 `licenses\FairPlay\source` |
 | Microsoft Visual C++ 运行库 | Microsoft 许可证 |
 | Electron、Anime4K 等 | `THIRD_PARTY_NOTICES.txt` |
 
-NVIDIA 组件只能在装有 NVIDIA GPU 的电脑上使用，不得单独再分发。本程序并非由 NVIDIA、AMD、Microsoft、Apple 或 Google 认可或赞助，商标归各公司所有。
+NVIDIA 组件只能在装有 NVIDIA GPU 的电脑上使用，不得单独再分发。本程序并非由 NVIDIA、AMD、Intel、Microsoft、Apple 或 Google 认可或赞助，商标归各公司所有。
